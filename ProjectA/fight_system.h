@@ -3,7 +3,7 @@
 
 int critChance(int schaden);
 int takeDmg(int str, int def);
-int heal(int max_hp);
+int heal(Stats_spieler& Player);
 void escape(bool escape_try);
 
 void fightMenu(Stats_spieler& Player_fight, Stats_enemy& Enemy_fight);

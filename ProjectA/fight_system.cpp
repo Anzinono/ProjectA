@@ -33,12 +33,20 @@ int takeDmg(int str, int def) {
 	return schaden = str - def;
 }
 
-int heal(int max_hp) {
+int heal(Stats_spieler& Player) {
 	// Ausgabe ist der Wert der Geiheilt wirt - Heilungswert , nicht die Aktuelle HP!
 	// Z.b MaxHP = 10 dann heal = 3.
-	int give_hp = 0;
+	float heal_factor = 0.3;
+	int temp_hp = 0;
+	int newhp = 0;
+	int healed = 0;
 
-	return give_hp = max_hp * 0.3;
+	temp_hp = Player.get_CurrentHp() + (Player.get_MaxHp() * heal_factor);
+	newhp = min(temp_hp, Player.get_MaxHp());
+	healed = newhp - Player.get_CurrentHp();
+
+	Player.set_CurrentHp(newhp);
+	return healed;
 }
 
 bool doge(Stats_spieler& Player) {
@@ -48,7 +56,7 @@ bool doge(Stats_spieler& Player) {
 	doge_d = 1 * Player.get_Defends(); // x * Player.get_Defends() ; x = Multiplayer
 	srand(time(NULL));
 	chance_number = rand() % 100 + 1;
-	
+
 	if (chance_number <= 20 + doge_d) { // <= 20% Doge Chance + Defends
 		return doge_try = true;
 	}
@@ -81,8 +89,9 @@ void enemyTurn(Stats_enemy& Enemy_fight, Stats_spieler& Player_fight) { // Enemy
 
 	if (doge(Player_fight) == true) {
 		chainread("\nWHAM!!! KROAS. DU HAST EINFACH DEN ANGRIFF GEDOGE?!? Bist du in der Matrix oder wat?\n");
-	}else{
-		chainread("\nZAP! BOOM! Du hast %d Schaden bekommen.\n",takeDmg(Enemy_fight.get_Strength(),Player_fight.get_Defends()));
+	}
+	else {
+		chainread("\nZAP! BOOM! Du hast %d Schaden bekommen.\n", takeDmg(Enemy_fight.get_Strength(), Player_fight.get_Defends()));
 		Player_fight.set_CurrentHp(Player_fight.get_CurrentHp() - takeDmg(Enemy_fight.get_Strength(), Player_fight.get_Defends()));
 	}
 	Sleep(WAIT);
@@ -93,6 +102,7 @@ void fightMenu(Stats_spieler& Player_fight, Stats_enemy& Enemy_fight) {
 	bool fm = false;
 	bool escape_try = false;
 	int crit_temp = 0;
+	int healed = 0;
 
 	do {
 		if (fm == true) {
@@ -144,8 +154,8 @@ void fightMenu(Stats_spieler& Player_fight, Stats_enemy& Enemy_fight) {
 				fm = true;
 			}
 			else {
-				Player_fight.set_CurrentHp(Player_fight.get_CurrentHp() + heal(Player_fight.get_MaxHp()));
-				chainread("Du hast dich um +%d HP Geheilt.\nAktuelle HP:%d/%d \n", heal(Player_fight.get_MaxHp()), Player_fight.get_CurrentHp(), Player_fight.get_MaxHp());
+				healed = heal(Player_fight);
+				chainread("Du hast dich um +%d HP Geheilt.\nAktuelle HP:%d/%d \n", healed, Player_fight.get_CurrentHp(), Player_fight.get_MaxHp());
 
 			}
 			break;

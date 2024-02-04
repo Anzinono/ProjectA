@@ -307,7 +307,7 @@ void main() {
 
 					chainread("Das ist hier ein Beispiel Text.");
 					Sleep(WAIT);
-					chainread("\nBist du dir sicher, dass du diese Geschwindigkeit behalten möchtest? [Y|N]\n");
+					chainread("\nBist du dir sicher, dass du diese Geschwindigkeit behalten moechtest? [Y|N]\n");
 					temp_antwort = inputChar();
 
 					if (temp_antwort != 'n' && temp_antwort != 'y') {
