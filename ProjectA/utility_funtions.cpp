@@ -22,29 +22,36 @@ void chainread(const char* format, ...) {
 		if (*currentChar == '%') {
 			++currentChar;
 
+			// Überprüfe das Formatierungssymbol
 			switch (*currentChar) {
+			
+			// %d = int-Argumente
 			case 'd': {
 				int value = va_arg(args, int);
 				printf("%d", value);
 				break;
 			}
+
+			// %s = String bzw const char* - Argumente
 			case 's': {
 				const char* str = va_arg(args, const char*);
 				printf("%s", str);
 				break;
 			}
 			default:
+				// Wenn das Formatierungssymbol nicht erkannt wird, gib es einfach aus
 				putchar(*currentChar);
 				break;
 			}
 		}
 		else {
+			// Wenn das Zeichen kein Prozentzeichen ist, gib es einfach aus
 			putchar(*currentChar);
 		}
-
+		// verzögerung der ausgabe bassieren auf der globale variabel textspeed
 		Sleep(textspeed*10);
 	}
-
+	// liste clearen
 	va_end(args);
 }
 
