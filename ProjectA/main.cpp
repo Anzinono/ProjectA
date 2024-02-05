@@ -63,7 +63,7 @@ int checkLevelUP(Stats_spieler& Player) {
 			}
 		} while (antwort != 1 && antwort != 2 && antwort != 3);
 		Player.set_Level(Player.get_Level() + 1);
-		Player.set_NeedExp(Player.get_NeedExp() + (Player.get_Level() + exp_factor)); 
+		Player.set_NeedExp(Player.get_NeedExp() + (Player.get_Level() * exp_factor)); 
 		Player.save();
 		Sleep(WAIT);
 		return Player.get_Exp();
