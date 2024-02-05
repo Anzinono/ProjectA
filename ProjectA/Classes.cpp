@@ -22,7 +22,7 @@ Stats_spieler::Stats_spieler() {
 	defends = 0;
 	level = 1;
 	exp = 0;
-	needexp = 53;
+	needexp = 52;
 	death = 0;
 	tutorial = 0;
 	gamefile = 0;

@@ -21,7 +21,7 @@ int WAITSTACK = WAITSTACK + WAIT;
 // ===========================
 int checkLevelUP(Stats_spieler& Player) {
 	int antwort;
-	int exp_factor = 2.5;
+	float exp_factor = 2.5;
 	int end_exp = 50; // Exp Start was der spieler bei 1 benötigt
 	if (Player.get_Exp() == Player.get_NeedExp() || Player.get_Exp() >= Player.get_NeedExp()) { // <- BENÖTIGTE EXP MIT DEN LEVEL STEIGERN
 		chainread("\nDu hast ein LevelUp Ereicht!! :D , Good Job.\n"
