@@ -21,6 +21,8 @@ int WAITSTACK = WAITSTACK + WAIT;
 // ===========================
 int checkLevelUP(Stats_spieler& Player) {
 	int antwort;
+	int exp_factor = 2.5;
+	int end_exp = 50; // Exp Start was der spieler bei 1 benötigt
 	if (Player.get_Exp() == Player.get_NeedExp() || Player.get_Exp() >= Player.get_NeedExp()) { // <- BENÖTIGTE EXP MIT DEN LEVEL STEIGERN
 		chainread("\nDu hast ein LevelUp Ereicht!! :D , Good Job.\n"
 			"Du hast nun die Moeglichkeit Punkte zu Investieren.\n");
@@ -37,20 +39,20 @@ int checkLevelUP(Stats_spieler& Player) {
 			{
 			case 1:
 				Player.set_MaxHp(Player.get_MaxHp() + 5); // Hardcode, weil Gamedesign.
-				Player.set_Exp(Player.get_Exp() - 100); // Um dem Exp Balken zurückzusetzen.
+				Player.set_Exp(Player.get_Exp() - Player.get_NeedExp()); // Um dem Exp Balken zurückzusetzen.
 				chainread("Du hast Deine Maximale HP erhoht <3\n");
 				chainread("Du hast nun eine Maximale HP von: %d", Player.get_MaxHp());
 				Player.set_CurrentHp(Player.get_MaxHp()); // Insta Heal auf MaxHp.
 				break;
 			case 2:
 				Player.set_Strength(Player.get_Strength() + 1);
-				Player.set_Exp(Player.get_Exp() - 100); // Um dem Exp Balken zurückzusetzen.
+				Player.set_Exp(Player.get_Exp() - Player.get_NeedExp()); // Um dem Exp Balken zurückzusetzen.
 				chainread("Du hast Deine Strength erhoht ;)\n");
 				chainread("Du hast nun eine Starker von: %d", Player.get_Strength());
 				break;
 			case 3:
 				Player.set_Defends(Player.get_Defends() + 1);
-				Player.set_Exp(Player.get_Exp() - 100); // Um dem Exp Balken zurückzusetzen.
+				Player.set_Exp(Player.get_Exp() - Player.get_NeedExp()); // Um dem Exp Balken zurückzusetzen.
 				chainread("Du hast dein Verteigung erhoht --[]\n");
 				chainread("Du hast nun eine Verteidigung von: %d", Player.get_Defends());
 				break;
@@ -61,7 +63,7 @@ int checkLevelUP(Stats_spieler& Player) {
 			}
 		} while (antwort != 1 && antwort != 2 && antwort != 3);
 		Player.set_Level(Player.get_Level() + 1);
-		Player.set_NeedExp(Player.get_NeedExp() + 5);
+		Player.set_NeedExp(Player.get_NeedExp() + (Player.get_Level() + exp_factor)); 
 		Player.save();
 		Sleep(WAIT);
 		return Player.get_Exp();
